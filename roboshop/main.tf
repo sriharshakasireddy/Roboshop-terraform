@@ -33,7 +33,7 @@ resource "azurerm_virtual_machine" "vm" {
   storage_os_disk {
     name              = "myosdisk1"
     caching           = "ReadWrite"
-    create_option     = "Attach"
+    create_option     = "Empty"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
