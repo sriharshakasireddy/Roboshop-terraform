@@ -80,6 +80,12 @@ variable "components" {
       vm_size = "Standard_DS1_v2"
 
     }
+    dispatch = {
+
+      name    = "dispatch"
+      vm_size = "Standard_B2s"
+
+    }
 
   }
 }
