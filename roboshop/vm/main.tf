@@ -83,11 +83,10 @@ resource "azurerm_virtual_machine" "main" {
   # delete_data_disks_on_termination = true
 
   storage_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts"
-    version   = "latest"
-  }
+    id = "/subscriptions/a92e07d8-3cdd-4fda-bb98-99b2dddb739c/resourceGroups/Project/providers/Microsoft.Compute/galleries/custom/images/custom/versions/1.0.0"
+}
+
+
   storage_os_disk {
     name              = var.component
     caching           = "ReadWrite"
