@@ -6,6 +6,18 @@ terraform {
     }
   }
 }
+
+resource "azurerm_public_ip" "main" {
+  name                = "${var.component}-pip"
+  resource_group_name = data.azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
+  allocation_method   = "Static"
+
+  tags = {
+    component = var.component
+  }
+}
+
 resource "azurerm_network_interface" "main" {
   name                = "${var.component}-interface"
   location            = data.azurerm_resource_group.main.location
@@ -47,16 +59,7 @@ resource "azurerm_network_interface_security_group_association" "example" {
 }
 
 
-resource "azurerm_public_ip" "main" {
-  name                = "${var.component}-pip"
-  resource_group_name = data.azurerm_resource_group.main.name
-  location            = data.azurerm_resource_group.main.location
-  allocation_method   = "Static"
 
-  tags = {
-    component = var.component
-  }
-}
 
 resource "azurerm_dns_a_record" "example" {
   name                = "${var.component}-dev"
@@ -67,6 +70,7 @@ resource "azurerm_dns_a_record" "example" {
 }
 
 resource "azurerm_virtual_machine" "main" {
+  depends_on = [azurerm_network_interface_security_group_association.example, azurerm_dns_a_record.example]
   name                  = var.component
   location              = data.azurerm_resource_group.main.location
   resource_group_name   = data.azurerm_resource_group.main.name
@@ -107,8 +111,11 @@ resource "azurerm_virtual_machine" "main" {
 }
 
 resource "null_resource" "ansible" {
+  depends_on = [azurerm_virtual_machine.main]
 
   provisioner "remote-exec" {
+
+
 
   connection {
     type     = "ssh"
