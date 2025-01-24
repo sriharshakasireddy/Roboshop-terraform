@@ -110,6 +110,7 @@ resource "azurerm_virtual_machine" "main" {
 resource "null_resource" "ansible" {
 
   provisioner "remote-exec" {
+
   connection {
     type     = "ssh"
     user     = "harsha"
