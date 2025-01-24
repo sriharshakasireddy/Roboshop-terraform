@@ -71,7 +71,7 @@ resource "azurerm_virtual_machine" "main" {
   location              = data.azurerm_resource_group.main.location
   resource_group_name   = data.azurerm_resource_group.main.name
   network_interface_ids = [azurerm_network_interface.main.id]
-  vm_size               = "Standard_DS1_v2"
+  vm_size               = var.vm_size
 
 
 
@@ -107,21 +107,23 @@ resource "azurerm_virtual_machine" "main" {
   }
 }
 
-resource "null_resource" "ansible" {
+# resource "null_resource" "ansible" {
+#
+#   provisioner "remote-exec" {
+#   connection {
+#     type     = "ssh"
+#     user     = "harsha"
+#     password = "harsha@123456"
+#     host     = azurerm_public_ip.main.ip_address
+#   }
+#
+#     inline = [
+#       "sudo dnf install python3.12-pip -y",
+#       "sudo pip3.12 install ansible",
+#       "ansible-pull -i localhost, U https://github.com/sriharshakasireddy/ansible roboshop.yml -e app-name=${var.component} -e ENV=dev"
+#
+#     ]
+#
+#   }
 
-  provisioner "remote-exec" {
-  connection {
-    type     = "ssh"
-    user     = "harsha"
-    password = "harsha@123456"
-    host     = azurerm_public_ip.main.ip_address
-  }
-
-    inline = [
-      "sudo dnf install python3.12-pip -y",
-      "sudo pip3.12 install ansible",
-      "ansible-pull -i localhost, U https://github.com/sriharshakasireddy/ansible roboshop.yml -e app-name=${var.component} -e ENV=dev"
-
-    ]
-  }
-}
+#}
