@@ -1,2 +1,2 @@
-# variable "har" {}
-# variable "components" {}
+variable "har" {}
+variable "components" {}
