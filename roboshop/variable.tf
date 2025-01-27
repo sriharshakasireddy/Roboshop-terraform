@@ -1,2 +1,2 @@
-variable "har" {}
+variable "env" {}
 variable "components" {}

@@ -1,4 +1,4 @@
-har = "dev"
+env = "dev"
 
 components = {
 mongodb = {
