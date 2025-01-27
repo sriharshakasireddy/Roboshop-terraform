@@ -1,0 +1,2 @@
+variable "har" {}
+variable "components" {}
